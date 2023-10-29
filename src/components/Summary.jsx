@@ -32,6 +32,8 @@ export const Summary = ({ surveyData, steps }) => {
   } else {
       treatmentText = `You booked a ${treatment} treatment and gave us a
         rating of ${surveyData.stars} stars!`
+
+      treatmentText += surveyData.professionalism === "yes" ? " We are happy to hear that you found our staff professional." : "We are sad to hear that you found our staff less than profressional and forwarded your comment to the management."
   }
 
   return (
