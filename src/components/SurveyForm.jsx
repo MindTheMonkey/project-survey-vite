@@ -99,6 +99,18 @@ export const SurveyForm = () => {
     },
     {
       Component: RadioButtons,
+      valueKey: "professionalism",
+      question: "Would you say that you were treated professionally by our SPA-team?",
+      className: "radio-buttons",
+      options: [
+        { name: "Yes", valueKey: "yes"},
+        { name: "No", valueKey: "no"}
+      ],
+      display: !(["no", ""].includes(surveyData.treatment)),
+      answerRequired: true
+    },
+    {
+      Component: RadioButtons,
       valueKey: "stars",
       question: "How many stars would you give your treatment?",
       className: "radio-buttons",
@@ -111,6 +123,21 @@ export const SurveyForm = () => {
         ],
       // We define a list of the values that should not render this display. And if our state is set to one of the values we get true. We then return the opposite meaning that we set display to false if the answer is one of our excluded values.
       display: !(["no", ""].includes(surveyData.treatment)),
+      answerRequired: true
+    },
+    {
+      Component: SelectOption,
+      valueKey: "noTreatmentReason",
+      question: "Was there a specific reason for not attending any treatments?",
+      className: "dropdown",
+      options: [
+        { name: "<Select reason>", valueKey: ""},
+        { name: "Didn't have time", valueKey: "noTime"},
+        { name: "Too expensive", valueKey: "expensive"},
+        { name: "Didn't have the treatments that I like", valueKey: "missingTreatments"},
+        { name: "Other", valueKey: "other"}
+      ],
+      display: (["no", ""].includes(surveyData.treatment)),
       answerRequired: true
     },
     {

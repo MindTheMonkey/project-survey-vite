@@ -9,16 +9,31 @@ export const Summary = ({ surveyData, steps }) => {
     (acc, option) => (
       {...acc, [option.valueKey]: option.name}
       ), {});
-const treatment = treatmentOptions[surveyData.treatment];
 
-  //const durations = durationOptions.reduce((acc, option) => ({...acc, [option.valueKey]: option.name}), {})
+  const treatment = treatmentOptions[surveyData.treatment];
+  let treatmentText = "";
+  if (surveyData.treatment === "no") {
+    treatmentText = "You did not book any treatments."
+    switch(surveyData.noTreatmentReason) {
+      case "noTime":
+        treatmentText += " Hopefully you will have time to enjoy our services next time."
+        break
 
+      case "expensive":
+        treatmentText += " We have recorded your input on our treatment prices. Below you will find a 15% promo voucher for your next visit."
+        break
 
+      case "missingTreatments":
+        treatmentText += " We are sorry we didnt have your favorite treatments this time. Dont forget to subscribe to our newsletter as we are adding new treatments from time to time."
+        break
+      default:
+        break
+    }
+  } else {
+      treatmentText = `You booked a ${treatment} treatment and gave us a
+        rating of ${surveyData.stars} stars!`
+  }
 
-  console.log("Treatment options", treatmentOptions);
-  // console.log("Duration", durations);
-
-  console.log("treatment:", surveyData.treatment);
   return (
     <div className="summary">
       <p>Thank your for your valuable feedback {surveyData.name}!</p>
@@ -26,10 +41,7 @@ const treatment = treatmentOptions[surveyData.treatment];
       <p>
         You stayed in our {surveyData.roomType}, for a period of{" "}
         {durationOptions[surveyData.duration]}.{" "}
-        {surveyData.treatment === "no"
-          ? "You did not book any treatments."
-          : `You booked a ${treatment} treatment and gave us a
-        rating of ${surveyData.stars} stars!`}
+        {treatmentText}
       </p>
       <p>
         Your feedback will help us to improve our services for you. For your
